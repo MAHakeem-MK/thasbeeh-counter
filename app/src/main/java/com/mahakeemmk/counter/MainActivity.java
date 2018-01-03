@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         alertDialog.show();
     }
 
-    protected void confirmReset() {
+    private void confirmReset() {
         int count;
         count = 0;
         display(count);
@@ -73,5 +73,26 @@ public class MainActivity extends AppCompatActivity {
         if (count!=0) {
             outState.putInt("count_value",count);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Do you really want to exit?");
+        alertDialogBuilder.setPositiveButton("Exit",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        finish();
+                    }
+                });
+        alertDialogBuilder.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MainActivity.this,"Cancelled",Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
